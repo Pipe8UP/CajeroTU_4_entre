@@ -1,0 +1,83 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff5e0;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h2 {
+    color: #e67e22;
+    margin-bottom: 30px;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 90%;
+    max-width: 640px;
+    margin-bottom: 30px;
+}
+
+.menu-item {
+    background-color: #ffe9d6;
+    border: 2px solid #f5b041;
+    border-radius: 12px;
+    padding: 22px 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 110px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: #935116;
+    text-transform: uppercase;
+    background-image: linear-gradient(to bottom, #fffaf0, #ffe4b3);
+}
+
+.menu-item:hover {
+    background-color: #f5b041;
+    color: #fff;
+    transform: scale(1.06);
+    box-shadow: 0 6px 16px rgba(245, 176, 65, 0.5);
+}
+
+.menu-item i {
+    margin-bottom: 8px;
+    font-size: 24px;
+    color: #e67e22;
+}
+
+.logout-btn {
+    background-color: #c0392b;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 25px;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.logout-btn:hover {
+    background-color: #e74c3c;
+}
