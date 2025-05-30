@@ -5,11 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.CajeroTU4.CajeroTU4.Cuentaid;
-import com.CajeroTU4.CajeroTU4.entity.Movimiento;
-import com.CajeroTU4.CajeroTU4.entity.TipoMovimiento;
-import com.CajeroTU4.CajeroTU4.repository.CuentaRepository;
-import com.CajeroTU4.CajeroTU4.repository.MovimientoRepository;
+import com.CajeroTU4.CajeroTU.entity.Cuenta;
+import com.CajeroTU4.CajeroTU.entity.Movimiento;
+import com.CajeroTU4.CajeroTU.repository.CuentaRepository;
+import com.CajeroTU4.CajeroTU.repository.MovimientoRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,9 +19,7 @@ public class MovimientoService {
     private final MovimientoRepository movimientoRepository;
     private final CuentaRepository cuentaRepository;
 
-    public Movimiento registrarMovimiento(Cuentaid cuenta, 
-    TipoMovimiento tipo, 
-    double monto){
+    public Movimiento registrarMovimiento(Cuenta cuenta, com.CajeroTU4.CajeroTU.entity.TipoMovimiento tipo, double monto){
         Movimiento movimiento = Movimiento.builder()
             .cuenta(cuenta)
             .tipo(tipo)
@@ -32,54 +29,48 @@ public class MovimientoService {
         return movimientoRepository.save(movimiento);
     }
 
-    public List<Movimiento> obtenerMovimientosPorCuenta(Cuentaid cuenta,
-    double monto) {
+    public List<Movimiento> obtenerMovimientosPorCuenta(Cuenta cuenta) {
         return movimientoRepository.findByCuenta(cuenta);
     }
 
-    public boolean realizarRetiro(Cuentaid cuenta, double monto){
+    public boolean realizarRetiro(Cuenta cuenta, double monto){
         if (cuenta.getSaldo() >= monto) {
             cuenta.setSaldo(cuenta.getSaldo() - monto);
             cuentaRepository.save(cuenta);
-            registrarMovimiento(cuenta, TipoMovimiento.RETIRO, monto);
+            registrarMovimiento(cuenta, com.CajeroTU4.CajeroTU.entity.TipoMovimiento.RETIRO, monto);
             return true;       
-            
         }
         return false;
     }
 
-    public boolean realizarTransferencia(Cuentaid origen, 
-    Cuentaid destino, double monto) {
-        if (origen.getSaldo()>= monto) {
-            origen.setSaldo(origen.getSaldo()- monto);
+    public boolean realizarTransferencia(Cuenta origen, Cuenta destino, double monto) {
+        if (origen.getSaldo() >= monto) {
+            origen.setSaldo(origen.getSaldo() - monto);
             destino.setSaldo(destino.getSaldo() + monto);
             cuentaRepository.save(origen);
             cuentaRepository.save(destino);
 
-            registrarMovimiento(origen, TipoMovimiento.TRANSFERENCIA, -monto);
-            registrarMovimiento(destino, TipoMovimiento.TRANSFERENCIA, monto);
+            registrarMovimiento(origen, com.CajeroTU4.CajeroTU.entity.TipoMovimiento.TRANSFERENCIA, -monto);
+            registrarMovimiento(destino, com.CajeroTU4.CajeroTU.entity.TipoMovimiento.TRANSFERENCIA, monto);
             return true;
         }
         return false;
     }
 
     public List<Movimiento> buscarPorCuenta(String numeroCuenta){
-        Cuentaid cuenta = cuentaRepository.findByNumero(numeroCuenta)
-            .orElseThrow(() -> 
-            new RuntimeException("No se encontro la cuenta ojo con eso mijo"));
-            return movimientoRepository
-            .findByCuentaOrderByFechaDesc(cuenta);
+        Cuenta cuenta = cuentaRepository.findByNumero(numeroCuenta)
+            .orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
+        return movimientoRepository.findByCuentaOrderByFechaDesc(cuenta);
     }
 
-    public boolean realizarConsignacion(Cuentaid cuenta, double monto){
+    public boolean realizarConsignacion(Cuenta cuenta, double monto){
         if (monto <= 0) {
-            throw new IllegalArgumentException("Mi rey mas de cero pues ¡¡avispate!!!");
+            throw new IllegalArgumentException("El monto debe ser mayor a cero");
         }
         cuenta.setSaldo(cuenta.getSaldo() + monto);
         cuentaRepository.save(cuenta);
-        registrarMovimiento(cuenta, TipoMovimiento.CONSIGNACION, monto);
+        registrarMovimiento(cuenta, com.CajeroTU4.CajeroTU.entity.TipoMovimiento.CONSIGNACION, monto);
         return true;
     }
-
-
 }
+

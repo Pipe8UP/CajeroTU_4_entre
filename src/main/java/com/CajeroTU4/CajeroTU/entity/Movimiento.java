@@ -1,19 +1,16 @@
-package com.CajeroTU4.CajeroTU4.entity;
+package com.CajeroTU4.CajeroTU.entity;
 
 import java.time.LocalDateTime;
-
-import com.CajeroTU4.CajeroTU4.Cuentaid;
-
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Entity
-@Getter
+@Getter 
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor 
 @AllArgsConstructor
 @Builder
-
 public class Movimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +21,5 @@ public class Movimiento {
     private double monto;
     @ManyToOne
     @JoinColumn(name = "cuenta_id")
-    private Cuentaid cuenta;
+    private Cuenta cuenta;
 }

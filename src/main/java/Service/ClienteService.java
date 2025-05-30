@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.CajeroTU4.CajeroTU4.entity.Cliente;
-import com.CajeroTU4.CajeroTU4.repository.ClienteRepository;
+import com.CajeroTU4.CajeroTU.entity.Cliente;
+import com.CajeroTU4.CajeroTU.repository.ClienteRepository;
 
 import lombok.RequiredArgsConstructor;
 

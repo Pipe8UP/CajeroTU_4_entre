@@ -1,10 +1,10 @@
-package com.CajeroTU4.CajeroTU4;
+package com.CajeroTU4.CajeroTU;
 
 import java.util.List;
 
-import com.CajeroTU4.CajeroTU4.entity.Cliente;
-import com.CajeroTU4.CajeroTU4.entity.Movimiento;
-import com.CajeroTU4.CajeroTU4.entity.TipoCuenta;
+import com.CajeroTU4.CajeroTU.entity.Cliente;
+import com.CajeroTU4.CajeroTU.entity.Movimiento;
+import com.CajeroTU4.CajeroTU.entity.TipoCuenta;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

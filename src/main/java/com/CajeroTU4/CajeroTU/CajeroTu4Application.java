@@ -1,4 +1,4 @@
-package com.CajeroTU4.CajeroTU4;
+package com.CajeroTU4.CajeroTU;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

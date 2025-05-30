@@ -2,10 +2,10 @@ package Service;
 
 import org.springframework.stereotype.Service;
 
-import com.CajeroTU4.CajeroTU4.Cuentaid;
-import com.CajeroTU4.CajeroTU4.entity.Cliente;
-import com.CajeroTU4.CajeroTU4.repository.ClienteRepository;
-import com.CajeroTU4.CajeroTU4.repository.CuentaRepository;
+import com.CajeroTU4.CajeroTU.entity.Cliente;
+import com.CajeroTU4.CajeroTU.entity.Cuenta;
+import com.CajeroTU4.CajeroTU.repository.ClienteRepository;
+import com.CajeroTU4.CajeroTU.repository.CuentaRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +21,7 @@ public class RetiroService {
         Cliente cliente = clienteRepository.findByIdentificacion(identificacion)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
 
-        Cuentaid cuenta = cuentaRepository.findByNumero(numeroCuenta)
+        Cuenta cuenta = cuentaRepository.findByNumero(numeroCuenta)
                 .orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
 
         if (!cuenta.getCliente().equals(cliente)) {
@@ -29,13 +29,13 @@ public class RetiroService {
         }
 
         if(cliente.isBloqueado()){
-            throw new RuntimeException("Estas bloqueado mi bro");
+            throw new RuntimeException("El cliente o su cuenta está bloqueada");
         }
 
         boolean exito = movimientoService.realizarRetiro(cuenta, monto);
 
         if (!exito) {
-            throw new RuntimeException("Saldo insuficiente ¡¡Que pobre!!");
+            throw new RuntimeException("Saldo insuficiente");
         }
 
         return "redirect:cajero/menu?mensaje=Retiro realizado con éxito";

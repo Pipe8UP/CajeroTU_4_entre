@@ -1,4 +1,4 @@
-package com.CajeroTU4.CajeroTU4.entity;
+package com.CajeroTU4.CajeroTU.entity;
 
     public enum TipoMovimiento {
     CONSULTA,
